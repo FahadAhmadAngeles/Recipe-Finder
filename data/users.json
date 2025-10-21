@@ -1,0 +1,32 @@
+[
+    {
+        "customerid": 1,
+        "name": "Alice Morgan",
+        "dateAccountCreated": "2024-02-14",
+        "password": "alicePass123"
+    },
+    {
+        "customerid": 2,
+        "name": "Brian Chen",
+        "dateAccountCreated": "2023-11-03",
+        "password": "bchen!2023"
+    },
+    {
+        "customerid": 3,
+        "name": "Carla Ruiz",
+        "dateAccountCreated": "2025-01-20",
+        "password": "cruiz_pw"
+    },
+    {
+        "customerid": 4,
+        "name": "David Patel",
+        "dateAccountCreated": "2022-07-09",
+        "password": "dpatel789"
+    },
+    {
+        "customerid": 5,
+        "name": "Emma Novak",
+        "dateAccountCreated": "2024-09-30",
+        "password": "emn0vak!"
+    }
+]
