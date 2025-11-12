@@ -65,8 +65,8 @@ recipesRoutes.put('/:id', updateRecipeRules, (req, res) => {
         return res.status(400).json({ errors: errors.array() });
     } else {
     
-    recipeId = Number(req.params.id);
-    newRecipeData = req.body
+    const recipeId = Number(req.params.id);
+    const newRecipeData = req.body
 
     getProductByID(recipeId)
     .then((existingRecipe) => {
@@ -92,7 +92,7 @@ recipesRoutes.put('/:id', updateRecipeRules, (req, res) => {
 })
 
 recipesRoutes.delete('/:id', (req, res) => {
-    recipeId = Number(req.params.id);
+    const recipeId = Number(req.params.id);
     
 
     getProductByID(recipeId)

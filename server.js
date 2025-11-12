@@ -2,6 +2,11 @@ const express = require('express');
 const hostname = 'localhost';
 const port = 3000;
 const server = express();
+const dot = require('dotenv').config();
+const connectDB = require('./shared/middlewares/connect-db.js');
+
+server.use(express.json());
+server.use(connectDB);
 
 const recipesRoutes = require("./modules/recipes/recipes-routes.js");
 const usersRoutes = require("./modules/users/users-routes.js");

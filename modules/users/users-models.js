@@ -1,59 +1,52 @@
-const { readFile, writeToFile } = require("../../shared/utils");
+const mongoose = require("mongoose");
 
-const filePath = "./data/users.json";
+//SCHEMA AND MODELS 
+
+const userSchema = new mongoose.Schema({
+  userId: { type: Number, required: true, unique: true },
+  dateAccountCreated: { type: String, default: "Unknown"},
+  name: { type: String, required: true },
+  password: { type: String, required: true, minlength: 5 },
+});
+
+const userModel = mongoose.model("User", userSchema);
+
+//CRUD OPERATIONS
 
 async function getAllUsers() {
-    return readFile(filePath);
+  return await userModel.find();
 }
 
-async function getUserById(customerId) {
-    const users = await getAllUsers();
-    const foundUserIndex = users.findIndex((user) => user.customerid === customerId);
-    
-    if (foundUserIndex !== -1) {
-        return users[foundUserIndex];
-    } else {
-        throw new Error("User not found");
-    }
+async function getUserById(userId) {
+  const user = await userModel.findById(userId);
+  if (!user) throw new Error("User not found");
+  return user;
 }
 
 async function addUser(newUser) {
-    const users = await getAllUsers();
-    users.push(newUser);
-    await writeToFile(filePath, users);
-    return newUser;
+  const user = new userModel(newUser);
+  await user.save();
+  return user;
 }
 
-async function updateUser(customerId, updatedUser) {
-    const users = await getAllUsers();
-    const index = users.findIndex((user) => user.customerid === customerId);
-
-    if (index !== -1) {
-        users[index] = { ...users[index], ...updatedUser };
-        await writeToFile(filePath, users);
-        return users[index];
-    } else {
-        throw new Error("User not found");
-    }
+async function updateUser(userId, updatedUser) {
+  const user = await userModel.findByIdAndUpdate(userId, updatedUser, {new: true});
+  if (!user) throw new Error("User not found");
+  return user;
 }
 
-async function deleteUser(customerId) {
-    const users = await getAllUsers();
-    const index = users.findIndex((user) => user.customerid === customerId);
-
-    if (index !== -1) {
-        const deletedUser = users.splice(index, 1)[0];
-        await writeToFile(filePath, users);
-        return deletedUser;
-    } else {
-        throw new Error("User not found");
-    }
+async function deleteUser(userId) {
+  const deleted = await userModel.findByIdAndDelete(userId);
+  if (!deleted) throw new Error("User not found");
+  return deleted;
 }
+
 
 module.exports = {
-    getAllUsers,
-    getUserById,
-    addUser,
-    updateUser,
-    deleteUser
+  getAllUsers,
+  getUserById,
+  addUser,
+  updateUser,
+  deleteUser,
+  userModel
 };

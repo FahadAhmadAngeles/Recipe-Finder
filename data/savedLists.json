@@ -1,22 +1,22 @@
 [
     {
-        "customerid": 1,
+        "userId": 1,
         "recipeIds": [1, 5]
     },
     {
-        "customerid": 2,
+        "userId": 2,
         "recipeIds": [2, 4]
     },
     {
-        "customerid": 3,
+        "userId": 3,
         "recipeIds": [3, 1, 5]
     },
     {
-        "customerid": 4,
+        "userId": 4,
         "recipeIds": [4]
     },
     {
-        "customerid": 5,
+        "userId": 5,
         "recipeIds": [2, 3]
     }
 ]

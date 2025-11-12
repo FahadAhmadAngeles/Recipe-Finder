@@ -1,65 +1,49 @@
-const { readFile, writeToFile } = require("../../shared/utils");
-const path = require('path');
+const mongoose = require("mongoose");
 
-const filePath = path.resolve(__dirname, '../../data/recipes.json');
+const recipeSchema = new mongoose.Schema({
+  recipeId: { type: Number },
+  ingredients: { type: Array, default: [] },
+  rating: { type: Number, min: 0.5, max: 5 },
+  timeToMake: { type: String }
+});
+
+const recipeModel = mongoose.model("Recipe", recipeSchema);
+
+// CRUD OPERATIONS 
 
 async function getAllRecipes() {
-return await readFile(filePath);
+  return await recipeModel.find();
 }
 
 async function getRecipeById(recipeId) {
-    const recipes = await getAllRecipes();
-    const index = recipes.findIndex((recipe) => recipe.id === recipeId);
-    
-    if (index !== -1) {
-        return recipes[index];
-    } else {
-    throw new Error("Recipe not found");
-    }
-
+  const recipe = await recipeModel.findOne({ recipeId });
+  if (!recipe) throw new Error("Recipe not found");
+  return recipe;
 }
 
 async function addRecipe(newRecipe) {
-const recipes = await getAllRecipes();
-recipes.push(newRecipe);
-await writeToFile(filePath, recipes);
-
+  const recipe = new recipeModel(newRecipe);
+  await recipe.save();
+  return recipe;
 }
 
 async function updateRecipe(recipeId, updatedRecipe) {
-const recipes = await getAllRecipes();
-
-const index = recipes.findIndex((recipe) => recipe.id === recipeId);
-
-if (index !== -1) {
-    recipes[index] = updatedRecipe;
-    await writeToFile(filePath, recipes);
-    return recipes[index];
-} else {
-    throw new Error("Recipe not found");
-}
+  const recipe = await recipeModel.findOneAndUpdate({ recipeId },updatedRecipe, { new: true });
+  if (!recipe) throw new Error("Recipe not found");
+  return recipe;
 }
 
 async function deleteRecipe(recipeId) {
-const recipes = getAllRecipes();
-
-const index = recipes.findIndex((recipe) => recipe.id === recipeId);
-
-if (index !== -1) {
-    const deleted = recipes.slice(index, 1)[0];
-    await writeToFile(filePath, recipes);
-    return deleted;
-} else {
-    throw new Error("Recipe not found");
+  const deleted = await recipeModel.findOneAndDelete({ recipeId });
+  if (!deleted) throw new Error("Recipe not found");
+  return deleted;
 }
-}
-
 
 module.exports = {
   getAllRecipes,
   getRecipeById,
   addRecipe,
   updateRecipe,
-  deleteRecipe
+  deleteRecipe,
+  recipeModel
 };
-
