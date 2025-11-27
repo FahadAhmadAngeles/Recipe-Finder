@@ -1,0 +1,37 @@
+[
+    {
+        "recipeId": 1,
+        "name": "Classic Tomato Soup",
+        "ingredients": "tomato, onion, garlic, vegetable broth, cream",
+        "rating": 4.5,
+        "timeToMake": "1hr"
+    },
+    {
+        "recipeId": 2,
+        "name": "Roasted Potato Medley",
+        "ingredients": "potato, olive oil, rosemary, salt, pepper",
+        "rating": 4.2,
+        "timeToMake": "1.5hr"
+    },
+    {
+        "recipeId": 3,
+        "name": "Chicken Stir Fry",
+        "ingredients": "chicken, bell pepper, soy sauce, garlic, onion",
+        "rating": 4.7,
+        "timeToMake": "0.5hr"
+    },
+    {
+        "recipeId": 4,
+        "name": "Vegetable Curry",
+        "ingredients": "potato, carrot, tomato, coconut milk, curry powder",
+        "rating": 4.6,
+        "timeToMake": "2hr"
+    },
+    {
+        "recipeId": 5,
+        "name": "Pasta Primavera",
+        "ingredients": "pasta, tomato, zucchini, bell pepper, parmesan",
+        "rating": 4.3,
+        "timeToMake": "1hr"
+    }
+]
