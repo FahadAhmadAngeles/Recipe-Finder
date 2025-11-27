@@ -4,7 +4,9 @@ const port = 3000;
 const server = express();
 const dot = require('dotenv').config();
 const connectDB = require('./shared/middlewares/connect-db.js');
+const cors = require('cors');
 
+server.use(cors());
 server.use(express.json());
 server.use(connectDB);
 
