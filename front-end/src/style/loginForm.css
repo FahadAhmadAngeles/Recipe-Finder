@@ -1,0 +1,101 @@
+* {
+    color: black;
+}
+
+.lightbox-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5); 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.login-box {
+  background: white;
+  padding: 30px;
+  width: 350px;
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.3);
+  animation: fadeIn 0.3s ease;
+}
+
+.login-box h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.input-group {
+  margin-bottom: 15px;
+  display: flex;
+  flex-direction: column;
+}
+
+.input-group input {
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.login-btn {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 6px;
+  background: #0077ff;
+  color: rgb(0, 0, 0);
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.login-btn:hover {
+  background: #005fcc;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.97); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* Fix overlay showing background elements */
+.lightbox-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  backdrop-filter: blur(2px);
+}
+
+/* Close button */
+.close-login {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: #ff4f4f;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  color: white;
+  font-size: 14px;
+}
+
+.close-login:hover {
+  background: #d93636;
+}
+
+/* Ensure login box is above everything */
+.login-box {
+  position: relative; /* needed for close button */
+  background: white;
+  padding: 30px;
+  width: 350px;
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.3);
+  animation: fadeIn 0.3s ease;
+  z-index: 10000;
+}

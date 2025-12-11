@@ -1,10 +1,22 @@
 const { body } = require('express-validator');
 
-const nameRule = body('name')
-    .notEmpty()
+const emailRule = body('email')
+    .optional()
     .isString()
-    .isLength({ min: 2, max: 50 })
-    .withMessage('Name must be between 2 and 50 characters long');
+    .isEmail()
+    .withMessage('Email must be valid');
+
+const usernameRule = body('username')
+    .optional()
+    .isString()
+    .isLength({ min: 6, max: 20 })
+    .withMessage('Username must be between 6 and 20 characters');
+
+    const savedListRule = body('savedList')
+  .optional()
+  .isArray()
+  .withMessage('Saved list must be an array');
+
 
 const passwordRule = body('password')
     .notEmpty()
@@ -12,10 +24,11 @@ const passwordRule = body('password')
     .isLength({ min: 6, max: 30 })
     .withMessage('Password must be between 6 and 30 characters');
 
-const dateAccountCreatedRule = body('dateAccountCreated')
-    .notEmpty()
-    .isISO8601()
-    .withMessage('Date must be in valid ISO format (YYYY-MM-DD)');
+const roleRule = body('role')
+    .optional()
+    .isIn(['user', 'admin'])
+    .withMessage("Role must be either 'user' or 'admin'");
 
-const createUserRules = [nameRule, passwordRule, dateAccountCreatedRule];
+const createUserRules = [emailRule, passwordRule, roleRule, usernameRule, savedListRule];
+
 module.exports = { createUserRules };

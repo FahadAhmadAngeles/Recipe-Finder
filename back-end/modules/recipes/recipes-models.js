@@ -1,22 +1,38 @@
 const mongoose = require("mongoose");
 
 const recipeSchema = new mongoose.Schema({
-  recipeId: { type: Number },
-  ingredients: { type: Array, default: [] },
-  rating: { type: Number, min: 0.5, max: 5 },
-  timeToMake: { type: String }
+  recipe_id: { type: Number, required: true, unique: true },
+
+  recipe_name: { type: String, required: true },
+
+  prep_time: { type: String },        
+  cook_time: { type: String },       
+  total_time: { type: String },       
+
+  servings: { type: Number },
+
+  ingredients: { type: String  },
+  directions: { type: String},
+
+  rating: { type: Number, min: 0.0, max: 5.0 },
+
+  url: { type: String },
+  cuisine_path: { type: String },
+
+  nutrition: { type: String },
+  timing: { type: String }
+  
 });
 
 const recipeModel = mongoose.model("Recipe", recipeSchema);
 
-// CRUD OPERATIONS 
-
+// CRUD OPERATIONS
 async function getAllRecipes() {
   return await recipeModel.find();
 }
 
-async function getRecipeById(recipeId) {
-  const recipe = await recipeModel.findOne({ recipeId });
+async function getRecipeById(id) {
+  const recipe = await recipeModel.findById(id);
   if (!recipe) throw new Error("Recipe not found");
   return recipe;
 }
@@ -27,14 +43,18 @@ async function addRecipe(newRecipe) {
   return recipe;
 }
 
-async function updateRecipe(recipeId, updatedRecipe) {
-  const recipe = await recipeModel.findOneAndUpdate({ recipeId },updatedRecipe, { new: true });
+async function updateRecipe(recipe_id, updatedRecipe) {
+  const recipe = await recipeModel.findOneAndUpdate(
+    { recipe_id: recipe_id },
+    updatedRecipe,
+    { new: true }
+  );
   if (!recipe) throw new Error("Recipe not found");
   return recipe;
 }
 
-async function deleteRecipe(recipeId) {
-  const deleted = await recipeModel.findOneAndDelete({ recipeId });
+async function deleteRecipe(recipe_id) {
+  const deleted = await recipeModel.findOneAndDelete({ recipe_id });
   if (!deleted) throw new Error("Recipe not found");
   return deleted;
 }

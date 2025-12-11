@@ -1,0 +1,81 @@
+.navbar {
+  width: 100%;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background-color: #463b2f;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;   
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  height: 64px;
+  padding: 0px 15px;
+}
+
+.brand {
+  font-size: 24px;
+  font-weight: bold;
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.page-links {
+  display: flex;
+  gap: 0;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  align-items: stretch;
+}
+
+.account-buttons {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.login-btn-navbar {
+  padding: 8px 14px;
+  background-color: #ffffff;
+  border: none;
+  color: #000;
+  cursor: pointer;
+  border-radius: 4px;
+  font-weight: bold;
+  transition: background 0.2s;
+}
+
+.login-btn-navbar:hover {
+  background-color: #ddd;
+}
+
+.navLinks li {
+  height: 100%;
+}
+
+.link {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  color: #fff;
+  text-decoration: none;
+  font-size: 16px;
+  cursor: pointer;
+  transition: color 0.2s ease-in-out, background-color 0.2s;
+  box-sizing: border-box;
+  padding: 0px 16px;
+  border-left: 1px solid #464545;
+}
+
+.navLinks li:last-child .link {
+  border-right: 1px solid #464545;
+}
+
+.link:hover {
+  color: #000000;
+  background-color: #ededed;
+}

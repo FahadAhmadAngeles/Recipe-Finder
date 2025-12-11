@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const { userModel } = require("../../modules/users/users-models.js");
 const { recipeModel } = require("../../modules/recipes/recipes-models.js");
-const { listModel } = require("../../modules/savedLists/savedLists-models.js");
+const { reviewModel } = require("../../modules/reviews/reviews-models.js");
 const DB_URL = process.env.DB_URL;
 
 async function connectDB(req, res, next) {
@@ -12,7 +12,7 @@ async function connectDB(req, res, next) {
     await Promise.all([
       userModel.syncIndexes(),
       recipeModel.syncIndexes(),
-      listModel.syncIndexes(),
+      reviewModel.syncIndexes(),
     ]);
 
     next();

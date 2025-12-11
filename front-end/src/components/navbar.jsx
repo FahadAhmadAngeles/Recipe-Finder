@@ -1,59 +1,74 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import "../style/navbar.css";
+import LoginForm from "./loginForm.jsx";
+import Registration from "./registerForm.jsx";
 
 const Navbar = () => {
-  const styles = {
-    navbar: {
-      width: "100%",
-      position: "sticky",
-      top: 0,
-      zIndex: 1000,
-      backgroundColor: "#007bff",
-      color: "#fff",
-      padding: "15px 20px",
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "space-between",
-      boxShadow: "0 2px 5px rgba(0,0,0,0.1)",
-    },
-    brand: {
-      fontSize: "24px",
-      fontWeight: "bold",
-    },
-    navLinks: {
-      display: "flex",
-      gap: "20px",
-      listStyleType: "none",
-      margin: 0,
-      padding: 0,
-    },
-    link: {
-      color: "#fff",
-      textDecoration: "none",
-      fontSize: "16px",
-      cursor: "pointer",
-      transition: "color 0.2s",
-    },
+  const [showLogin, setShowLogin] = useState(false);
+  const [showRegister, setShowRegister] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    setIsLoggedIn(!!token);
+  }, []);
+
+  const handleLoginClick = () => setShowLogin(true);
+  const handleRegisterClick = () => setShowRegister(true);
+
+  const closeLogin = () => setShowLogin(false);
+  const closeRegister = () => setShowRegister(false);
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    setIsLoggedIn(false);
+  };
+
+  const handleLoginSuccess = (token) => {
+    localStorage.setItem("token", token);
+    setIsLoggedIn(true);
+    closeLogin();
   };
 
   return (
-    <nav style={styles.navbar}>
-      <div style={styles.brand}>Recipe Finder</div>
-      <ul style={styles.navLinks}>
-        <li>
-          <Link to="/" style={styles.link}>HomePage</Link>
-        </li>
-        <li>
-          <Link to="/favorites" style={styles.link}>Favorite Recipes</Link>
-        </li>
-        <li>
-          <Link to="/account" style={styles.link}>Account Settings</Link>
-        </li>
-        <li>
-          <Link to="/add-recipe" style={styles.link}>Add Recipe</Link>
-        </li>
-      </ul>
-    </nav>
+    <>
+      <nav className="navbar">
+        <div className="brand">Recipe Finder</div>
+
+        <ul className="navLinks page-links">
+          <li><Link to="/" className="link">HomePage</Link></li>
+          <li><Link to="/catalogue" className="link">Catalogue</Link></li>
+          <li><Link to="/favorites" className="link">Favorite Recipes</Link></li>
+          {/* <li><Link to="/add-recipe" className="link">Add Recipe</Link></li> */}
+        </ul>
+
+        <div className="account-buttons">
+          {!isLoggedIn && (
+            <>
+              <button className="login-btn-navbar" onClick={handleLoginClick}>
+                Login
+              </button>
+              <button className="login-btn-navbar" onClick={handleRegisterClick}>
+                Register
+              </button>
+            </>
+          )}
+
+          {isLoggedIn && (
+            <button className="login-btn-navbar" onClick={handleLogout}>
+              Logout
+            </button>
+          )}
+        </div>
+      </nav>
+
+      {showLogin && (
+        <LoginForm onLoginSuccess={handleLoginSuccess} onClose={closeLogin} />
+      )}
+
+      {showRegister && <Registration onClose={closeRegister} />}
+    </>
   );
 };
 

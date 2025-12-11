@@ -12,11 +12,11 @@ server.use(connectDB);
 
 const recipesRoutes = require("./modules/recipes/recipes-routes.js");
 const usersRoutes = require("./modules/users/users-routes.js");
-const savedListsRoutes = require("./modules/savedLists/savedLists-routes.js");
+const reviewsRoutes = require("./modules/reviews/reviews-routes.js");
 
 server.use('/recipes', recipesRoutes);
 server.use('/users', usersRoutes);
-server.use('/savedLists', savedListsRoutes);
+server.use('/reviews', reviewsRoutes);
 
 
 //Error Handling middleware
